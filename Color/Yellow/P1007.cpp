@@ -1,33 +1,33 @@
 // https://www.luogu.com.cn/problem/P1007
 
+// 这题其实是靠思维的
+// 可以这样子理解：两个人相遇时他们都会掉头，这可以看成继续沿着当前道路走，即碰撞等于相互穿过，每个人都在独立地走自己的路，互不干扰
+// 那么只需要计算出每个人撤离的最短和最长时间，然后去极值
 #include <iostream>
 #include <algorithm>
-#include <cmath>
+
 using namespace std;
-const int N = 5e3 + 10;
-int solider[N];
-int l, n;
+
 int main()
 {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int minn = 0, max_l = 0, min_r, mid;
-    cin >> l >> n;
-    min_r = n + 1;
-    solider[min_r] = l + 1;
-    mid = l / 2;
-    for (int i = 1; i <= n; i++)
+    int L, n;
+    cin >> L >> n;
+    if (n == 0)
     {
-        cin >> solider[i];
-        if (solider[i] <= mid)
-            max_l = solider[max_l] < solider[i] ? i : max_l;
-        else
-            min_r = solider[min_r] > solider[i] ? i : min_r;
+        cout << "0 0" << endl;
+        return 0;
     }
-    if (fabs(mid - solider[max_l]) >= fabs(mid - solider[min_r]))
-        minn = l - solider[min_r] + 1;
-    else
-        minn = solider[max_l];
-    cout << minn << '\n';
+    int min_ans = 0;
+    int max_ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int pos;
+        cin >> pos;
+        int to_near = min(pos, L - pos + 1);
+        int to_far = max(pos, L - pos + 1);
+        min_ans = max(min_ans, to_near);
+        max_ans = max(max_ans, to_far);
+    }
+    cout << min_ans << " " << max_ans << endl;
     return 0;
 }

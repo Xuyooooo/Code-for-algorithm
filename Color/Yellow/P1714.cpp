@@ -1,3 +1,5 @@
+// https://www.luogu.com.cn/problem/P1714
+
 // https://www.luogu.com.cn/problem/P1816
 // 经典RMQ，ST表，线段树
 
@@ -48,7 +50,7 @@
 
 using namespace std;
 
-const int N = 1e5 + 1;
+const int N = 5e5 + 1;
 int tree[N << 2];
 int in[N];
 int m, n, a, b;
