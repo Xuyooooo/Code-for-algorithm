@@ -29,6 +29,7 @@ int main()
     for (int i = 1; i <= n; i++)
     {
         ans *= a[i] - (i - 1);
+        ans %= modd;
     }
     if (ans > 0)
         cout << ans << '\n';

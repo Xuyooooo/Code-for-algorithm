@@ -41,7 +41,8 @@
 //      return 0;
 //  }
 
-//=============在第一个思路上优化
+//=============在第一个思路上优化================
+// 想要积水，就得两端都得有高于当前位置的柱子
 // #include <iostream>
 // #include <algorithm>
 // using namespace std;

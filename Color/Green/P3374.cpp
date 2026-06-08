@@ -1,6 +1,6 @@
 // https://www.luogu.com.cn/problem/P3374
 
-// 线段树，树状数组
+// 线段树，树状数组，点修+区查
 
 #include <iostream>
 
