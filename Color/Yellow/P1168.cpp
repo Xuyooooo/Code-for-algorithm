@@ -11,8 +11,8 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
     cin >> n;
-    priority_queue<int, vector<int>, less<int>> max_heap;    // 小顶堆，只不过放的是较大的数
-    priority_queue<int, vector<int>, greater<int>> min_heap; // 大顶堆，只不过放的是较小的数
+    priority_queue<int, vector<int>, less<int>> max_heap;    // 大顶堆，只不过放的是较大的数
+    priority_queue<int, vector<int>, greater<int>> min_heap; // 小顶堆，只不过放的是较小的数
     for (int i = 1; i <= n; i++)
     {
         cin >> x;
