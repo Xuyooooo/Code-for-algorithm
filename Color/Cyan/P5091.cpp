@@ -1,63 +1,73 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cmath>
+#include <string>
+
 using namespace std;
 using ll = long long;
-ll a, b, m;
-ll cal(ll x)
+
+// 得到m的欧拉函数的函数
+ll get_phi(ll m)
 {
-    if (x < 2)
-        return 0;
-    vector<bool> isPrime(x + 1, true);
-    vector<int> primes;
-    isPrime[0] = isPrime[1] = false;
-    for (int i = 2; i <= x; i++)
+    ll res = m;
+    for (ll i = 2; i * i <= m; i++)
     {
-        if (isPrime[i])
+        if (m % i == 0) // 只要能够整除就说明该数为质数(因为后续会将所有的为质数的整数倍的合数所去掉)
         {
-            primes.push_back(i);
-        }
-        for (int p : primes)
-        {
-            if (i * p > x)
-                break;
-            isPrime[i * p] = false;
-            if (i % p == 0)
-                break;
+            res = res / i * (i - 1); // 将分数乘法转换为整数乘除
+            while (m % i == 0)
+                m /= i;
         }
     }
-    return primes.size();
+    if (m > 1) // 检查是否有大于根号m的质因子
+        res = res / m * (m - 1);
+    return res;
 }
-ll quickPow(ll b)
+
+ll qpow(ll a, ll b, ll m)
 {
-    ll ans = 1, temp = a;
-    while (b)
+    ll res = 1;
+    a %= m;
+    while (b > 0)
     {
         if (b & 1)
-        {
-            ans *= temp;
-            ans %= m;
-        }
-        temp *= temp;
-        temp %= m;
+            res = (res * a) % m;
+        a = (a * a) % m;
         b >>= 1;
     }
-    ans %= m;
-    return ans;
+    return res;
 }
+
 int main()
 {
-    cin >> a >> b >> m;
-    ll save = cal(m);
-    if (__gcd(a, save) == 1)
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    ll a, m;
+    if (!(cin >> a >> m))
+        return 0;
+
+    ll phi = get_phi(m);
+    ll b = 0;
+    bool flag = false;
+    char ch;
+    while (cin >> ch && !isdigit(ch))
+        ; // 跳过空格和换行
+
+    while (isdigit(ch))
     {
-        cout << 1 % m << '\n';
+        b = b * 10 + (ch - '0');
+        if (b >= phi) // 欧拉降幂定理条件分支的判断
+        {
+            flag = true;
+            b %= phi;
+        }
+        if (!(cin >> ch))
+            break;
     }
-    else
+    if (flag)
     {
-        
+        b += phi;
     }
-    cout << quickPow(cal(m)) << '\n';
+    cout << qpow(a, b, m) << "\n";
+
     return 0;
 }
